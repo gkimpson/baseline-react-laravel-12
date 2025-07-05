@@ -30,6 +30,7 @@
         "spatie/laravel-permission": "^6.20",
         "spatie/laravel-query-builder": "^6.3",
         "spatie/laravel-ray": "^1.40",
+        "spatie/laravel-schedule-monitor": "^3.10",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {
