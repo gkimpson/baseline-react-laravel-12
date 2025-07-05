@@ -30,6 +30,24 @@ expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
 
+expect()->extend('toBeValidToken', function () {
+    return $this->toBeString()->toMatch('/^\d+\|[a-zA-Z0-9]{40}$/');
+});
+
+expect()->extend('toHaveTokenStructure', function () {
+    return $this->toHaveKeys(['user', 'token']);
+});
+
+expect()->extend('toHaveTokenListStructure', function () {
+    return $this->toHaveKey('tokens')
+        ->and($this->value['tokens'])->toBeArray();
+});
+
+expect()->extend('toHaveTokenResponseStructure', function () {
+    return $this->toHaveKey('token')
+        ->and($this->value['token'])->toHaveKeys(['id', 'name', 'abilities', 'plain_text_token', 'created_at']);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -41,7 +59,45 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function createUserWithToken(array $userAttributes = [], string $tokenName = 'test-device', array $abilities = ['*'])
 {
-    // ..
+    $user = \App\Models\User::factory()->create($userAttributes);
+    $token = $user->createToken($tokenName, $abilities);
+
+    return [
+        'user' => $user,
+        'token' => $token,
+        'plainTextToken' => $token->plainTextToken,
+    ];
+}
+
+function authenticateApi(?\App\Models\User $user = null, string $tokenName = 'test-device', array $abilities = ['*'])
+{
+    if (! $user) {
+        $user = \App\Models\User::factory()->create();
+    }
+
+    $token = $user->createToken($tokenName, $abilities);
+
+    return [
+        'user' => $user,
+        'token' => $token,
+        'headers' => [
+            'Authorization' => 'Bearer '.$token->plainTextToken,
+        ],
+    ];
+}
+
+function createVerifiedUser(array $attributes = [])
+{
+    return \App\Models\User::factory()->create(array_merge([
+        'email_verified_at' => now(),
+    ], $attributes));
+}
+
+function createUnverifiedUser(array $attributes = [])
+{
+    return \App\Models\User::factory()->create(array_merge([
+        'email_verified_at' => null,
+    ], $attributes));
 }
