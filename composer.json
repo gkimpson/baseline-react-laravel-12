@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "f9webltd/laravel-api-response-helpers": "^2.1",
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
         "itsgoingd/clockwork": "^5.3",
