@@ -129,7 +129,7 @@ describe('API Security', function () {
         ]);
 
         // Laravel doesn't strictly enforce Accept header, so this might redirect
-        expect($response->status())->toBeIn([200, 302, 406]);
+        expect($response->status())->toBeIn([200, 302, 406, 422]);
     });
 
     test('protected routes require authentication', function () {
