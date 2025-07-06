@@ -44,7 +44,6 @@ trait CreatesApiUsers
             'email' => 'john@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
-            'device_name' => 'test-device',
         ], $overrides);
     }
 

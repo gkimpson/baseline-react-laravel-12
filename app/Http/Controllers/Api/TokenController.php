@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class TokenController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Http\JsonResponse
     {
         $tokens = $request->user()->tokens->map(function ($token) {
             return [
@@ -25,7 +25,7 @@ class TokenController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -48,7 +48,7 @@ class TokenController extends Controller
         ], 201);
     }
 
-    public function destroy(Request $request, $tokenId)
+    public function destroy(Request $request, $tokenId): \Illuminate\Http\JsonResponse
     {
         $token = $request->user()->tokens()->where('id', $tokenId)->first();
 
@@ -71,7 +71,7 @@ class TokenController extends Controller
         ]);
     }
 
-    public function destroyAll(Request $request)
+    public function destroyAll(Request $request): \Illuminate\Http\JsonResponse
     {
         $currentTokenId = $request->user()->currentAccessToken()->id;
 

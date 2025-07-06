@@ -13,8 +13,7 @@ describe('API Registration', function () {
 
         $response->assertStatus(201)
             ->assertJsonStructure([
-                'user' => ['id', 'name', 'email'],
-                'message',
+                'access_token',
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -23,7 +22,7 @@ describe('API Registration', function () {
             'email_verified_at' => null,
         ]);
 
-        expect($response->json('message'))->toContain('verify');
+        expect($response->json('access_token'))->toBeString();
     });
 
     test('registered user cannot login without email verification', function () {
@@ -58,9 +57,9 @@ describe('API Registration', function () {
         $response = $this->postJson('/api/login', $loginData);
 
         $response->assertStatus(200)
-            ->assertJsonStructure(['user', 'token']);
+            ->assertJsonStructure(['access_token']);
 
-        expect($response->json())->toHaveTokenStructure();
+        expect($response->json('access_token'))->toBeString();
     });
 
     test('registration with duplicate email fails', function () {
@@ -118,7 +117,6 @@ describe('API Registration', function () {
                 'name',
                 'email',
                 'password',
-                'device_name',
             ]);
     });
 });

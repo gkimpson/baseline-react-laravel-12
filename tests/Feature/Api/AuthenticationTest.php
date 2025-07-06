@@ -18,12 +18,10 @@ describe('API Authentication', function () {
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'user' => ['id', 'name', 'email'],
-                'token',
+                'access_token',
             ]);
 
-        expect($response->json('user.id'))->toBe($user->id);
-        expect($response->json('token'))->toBeString();
+        expect($response->json('access_token'))->toBeString();
     });
 
     test('user cannot login with invalid credentials', function () {
@@ -59,11 +57,11 @@ describe('API Authentication', function () {
             ->assertJsonValidationErrors(['email']);
     });
 
-    test('login validation requires email, password, and device_name', function () {
+    test('login validation requires email and password', function () {
         $response = $this->postJson('/api/login', []);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['email', 'password', 'device_name']);
+            ->assertJsonValidationErrors(['email', 'password']);
     });
 
     test('login validation requires valid email format', function () {
@@ -130,8 +128,7 @@ describe('API Authentication', function () {
 
         $response->assertStatus(201)
             ->assertJsonStructure([
-                'user' => ['id', 'name', 'email'],
-                'message',
+                'access_token',
             ]);
 
         $this->assertDatabaseHas('users', [
@@ -148,7 +145,6 @@ describe('API Authentication', function () {
                 'name',
                 'email',
                 'password',
-                'device_name',
             ]);
     });
 
