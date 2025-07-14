@@ -41,6 +41,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **React 19**: Frontend framework with TypeScript support
 - **Tailwind CSS 4**: Utility-first CSS framework
 - **shadcn/ui**: React component library built on Radix UI primitives
+- **Flowbite**: Tailwind CSS component library with pre-built components (Pro version available at https://flowbite.com/pro/)
 - **Vite 6**: Frontend build tool with HMR support
 - **TypeScript 5.7**: Strict type checking and modern JavaScript features
 - **Pest 3.8**: Modern PHP testing framework
@@ -84,6 +85,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **React DOM 19**: DOM rendering with concurrent features
 - **Headless UI 2**: Unstyled, accessible UI components
 - **Radix UI**: Comprehensive primitive component library
+- **Flowbite React**: React components built on Tailwind CSS (includes Pro components from https://flowbite.com/pro/)
 - **Lucide React 0.475**: Beautiful icon library
 - **Class Variance Authority**: Type-safe component variants
 - **Tailwind Merge 3**: Intelligent CSS class merging
@@ -130,6 +132,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### UI Component System
 - Based on shadcn/ui with customizable theming
 - Uses Radix UI primitives for accessibility
+- Flowbite components (free and Pro versions) for additional Tailwind CSS utilities
 - Tailwind CSS for styling with CSS variables for theming
 - Components support both light and dark modes via `use-appearance` hook
 
